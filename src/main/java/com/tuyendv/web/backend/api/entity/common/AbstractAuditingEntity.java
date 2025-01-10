@@ -30,6 +30,9 @@ public abstract class AbstractAuditingEntity<T> implements Serializable {
     @Column (name = "reg_date", updatable = false)
     private Instant regDate;
 
+    @Column (name = "reg_ip", updatable = false)
+    private String regIp;
+
     @LastModifiedBy
     @Column (name = "modify_Id", length = 50)
     private String modifyId;
@@ -37,5 +40,8 @@ public abstract class AbstractAuditingEntity<T> implements Serializable {
     @LastModifiedDate
     @Column (name = "modify_date")
     private Instant modifyDate;
+
+    @Column (name = "modify_ip", updatable = false)
+    private String modifyIp;
 
 }
