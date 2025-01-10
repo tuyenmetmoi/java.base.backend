@@ -8,4 +8,6 @@ public class Constants {
 
     public static String STATE_N = "N";
 
+    public static String SORT_ASC = "asc";
+
 }
