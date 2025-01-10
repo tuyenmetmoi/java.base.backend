@@ -1,8 +1,8 @@
-package com.tuyendv.web.backend.api.config.file.impl;
+package com.tuyendv.web.backend.api.domain.system.file.impl;
 
 import com.tuyendv.web.backend.api.common.ApiStatus;
 import com.tuyendv.web.backend.api.common.Constants;
-import com.tuyendv.web.backend.api.config.file.service.FileMngService;
+import com.tuyendv.web.backend.api.domain.system.file.service.FileMngService;
 import com.tuyendv.web.backend.api.config.security.handler.CustomException;
 import com.tuyendv.web.backend.api.dto.system.file.FileMngDto;
 import com.tuyendv.web.backend.api.dto.system.file.MultipleFileDTO;
@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 

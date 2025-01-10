@@ -1,4 +1,4 @@
-package com.tuyendv.web.backend.api.config.file.service;
+package com.tuyendv.web.backend.api.domain.system.file.service;
 
 import com.tuyendv.web.backend.api.dto.system.file.FileMngDto;
 import com.tuyendv.web.backend.api.dto.system.file.MultipleFileDTO;

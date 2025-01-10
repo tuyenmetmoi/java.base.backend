@@ -1,6 +1,6 @@
 package com.tuyendv.web.backend.api.util.system;
 
-import com.tuyendv.web.backend.api.config.file.service.FileMngService;
+import com.tuyendv.web.backend.api.domain.system.file.service.FileMngService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
