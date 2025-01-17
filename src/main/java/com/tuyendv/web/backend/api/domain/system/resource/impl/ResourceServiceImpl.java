@@ -40,7 +40,7 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public ResourceResponseDTO detailResource(Long id) {
+    public ResourceResponseDTO detailResource(Integer id) {
         ResourceEntity entityExist = resourceRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ApiStatus.NOT_FOUND));
 
@@ -69,7 +69,7 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public ResourceResponseDTO deleteResource(Long id) {
+    public ResourceResponseDTO deleteResource(Integer id) {
         ResourceEntity entity = resourceRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ApiStatus.NOT_FOUND));
 

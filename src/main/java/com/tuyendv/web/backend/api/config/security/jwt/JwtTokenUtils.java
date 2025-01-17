@@ -11,17 +11,22 @@ import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import com.tuyendv.web.backend.api.common.ApiStatus;
+import com.tuyendv.web.backend.api.common.Constants;
 import com.tuyendv.web.backend.api.config.security.handler.CustomException;
 import com.tuyendv.web.backend.api.dto.system.loginJwt.AuthenticationResponse;
 import com.tuyendv.web.backend.api.entity.system.loginJwt.JwtUser;
+import com.tuyendv.web.backend.api.entity.system.role.RoleEntity;
+import com.tuyendv.web.backend.api.repository.system.role.RoleRepository;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
 
@@ -30,7 +35,7 @@ import java.util.UUID;
 public class JwtTokenUtils {
 
     @NonFinal
-    @Value("${jwt.signerKey}")
+    @Value ("${jwt.signerKey}")
     private String SIGNER_KEY;
 
     @NonFinal
@@ -38,20 +43,22 @@ public class JwtTokenUtils {
     private long VALID_DURATION;
 
     @NonFinal
-    @Value("${jwt.refreshable-duration}")
+    @Value ("${jwt.refreshable-duration}")
     private long REFRESHABLE_DURATION;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     private String buildScope(JwtUser user) {
         StringJoiner stringJoiner = new StringJoiner(","); //create string split with ","
 
         //get role and set in stringJoiner
-        //example
-//        if (!CollectionUtils.isEmpty(user.getRoles()))
-//            user.getRoles().forEach(role -> {
-//                stringJoiner.add("ROLE_" + role.getName());
-//                if (!CollectionUtils.isEmpty(role.getPermissions()))
-//                    role.getPermissions().forEach(permission -> stringJoiner.add(permission.getName()));
-//            });
+        List<RoleEntity> lstRoles = roleRepository.findAllByUserIdAndUseYnAndDelYn(user.getUserName(), Constants.STATE_Y,
+                Constants.STATE_N);
+
+        lstRoles.forEach(role -> {
+            stringJoiner.add(role.getRoleCode());
+        });
 
         return stringJoiner.toString();
     }
@@ -60,13 +67,10 @@ public class JwtTokenUtils {
         try {
             JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
-            JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                    .subject(user.getStaffNo()) //set user id
+            JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder().subject(user.getUserName()) //set user id
                     .issuer("tuyendv") //token origin
-                    .issueTime(new Date())
-                    .expirationTime(Date.from(Instant.now().plusSeconds(VALID_DURATION)))
-                    .jwtID(UUID.randomUUID().toString())
-                    .claim("scope", buildScope(user)) //custom claim
+                    .issueTime(new Date()).expirationTime(Date.from(Instant.now().plusSeconds(VALID_DURATION)))
+                    .jwtID(UUID.randomUUID().toString()).claim("scope", buildScope(user)) //custom claim
                     .build();
 
             //set claim to payload
@@ -78,7 +82,7 @@ public class JwtTokenUtils {
 
             return jwsObject.serialize();
         } catch (JOSEException e) {
-            log.error("Cannot create token for user id: {} ", user.getStaffNo(), e);
+            log.error("Cannot create token for user id: {} ", user.getUserName(), e);
             throw new RuntimeException(e);
         }
     }
@@ -92,7 +96,7 @@ public class JwtTokenUtils {
 
             boolean verified = signedJWT.verify(verifier);
 
-            if (!(verified && expirationDate.after(new Date()))) {
+            if (! (verified && expirationDate.after(new Date()))) {
                 throw new CustomException(ApiStatus.UNAUTHENTICATED);
             }
 

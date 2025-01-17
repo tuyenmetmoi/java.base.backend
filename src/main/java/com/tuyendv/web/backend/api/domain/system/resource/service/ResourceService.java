@@ -9,12 +9,12 @@ public interface ResourceService {
 
     Page<ResourceResponseDTO> findResource(ResourceSearchDTO searchDTO);
 
-    ResourceResponseDTO detailResource(Long id);
+    ResourceResponseDTO detailResource(Integer id);
 
     ResourceResponseDTO createResource(ResourceRequestDTO dto);
 
     ResourceResponseDTO updateResource(ResourceRequestDTO dto);
 
-    ResourceResponseDTO deleteResource(Long id);
+    ResourceResponseDTO deleteResource(Integer id);
 
 }

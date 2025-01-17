@@ -92,17 +92,17 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public MenuResponseDTO detailMenu(Long id) {
+    public MenuResponseDTO detailMenu(Integer id) {
         MenuEntity entity = menuRepository.findById(id).orElseThrow(() -> new CustomException(ApiStatus.NOT_FOUND));
 
         return modelMapper.map(entity, MenuResponseDTO.class);
     }
 
     @Override
-    public MenuResponseDTO updateDeleteFlagMenu(Long id) {
+    public MenuResponseDTO updateDeleteFlagMenu(Integer id) {
         MenuEntity deleteMenu = menuRepository.findById(id).orElseThrow(() -> new CustomException(ApiStatus.NOT_FOUND));
 
-        List<MenuEntity> lstChildren = menuRepository.findAllByParentId(deleteMenu.getId());
+        List<MenuEntity> lstChildren = menuRepository.findAllByParentId(deleteMenu.getMnId());
         lstChildren.forEach(item -> {
             item.setDelYn(Constants.STATE_Y);
         });

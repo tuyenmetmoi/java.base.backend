@@ -6,20 +6,26 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.io.Serializable;
 
 @Setter
 @Getter
 @Entity
-@Table (name = "resource")
-public class ResourceEntity extends AbstractAuditingEntity<String> implements Serializable {
+@DynamicUpdate
+@NoArgsConstructor
+@AllArgsConstructor
+@Table (name = "SYS_RESOURCE")
+public class ResourceEntity extends AbstractAuditingEntity<Integer> implements Serializable {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer rsId;
 
     private String name;
 

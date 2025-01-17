@@ -17,8 +17,8 @@ public interface MenuService {
 
     boolean updateMenu(MenuRequestDTO dto);
 
-    MenuResponseDTO detailMenu(Long id);
+    MenuResponseDTO detailMenu(Integer id);
 
-    MenuResponseDTO updateDeleteFlagMenu(Long id);
+    MenuResponseDTO updateDeleteFlagMenu(Integer id);
 
 }

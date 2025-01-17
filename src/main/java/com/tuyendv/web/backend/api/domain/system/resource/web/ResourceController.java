@@ -31,7 +31,7 @@ public class ResourceController {
 
     @PostMapping ("/detail")
     public ApiResponse<ResourceResponseDTO> getResourceById(@RequestBody String id) {
-        ResourceResponseDTO detailResource = resourceService.detailResource(Long.parseLong(id));
+        ResourceResponseDTO detailResource = resourceService.detailResource(Integer.valueOf(id));
 
         return new ApiResponse<>(ApiStatus.SUCCESS, detailResource);
     }
@@ -52,7 +52,7 @@ public class ResourceController {
 
     @DeleteMapping ("/delete")
     public ApiResponse<ResourceResponseDTO> deleteResourceById(@RequestBody String id) {
-        ResourceResponseDTO deleteResource = resourceService.deleteResource(Long.parseLong(id));
+        ResourceResponseDTO deleteResource = resourceService.deleteResource(Integer.valueOf(id));
 
         return new ApiResponse<>(ApiStatus.SUCCESS, deleteResource);
     }

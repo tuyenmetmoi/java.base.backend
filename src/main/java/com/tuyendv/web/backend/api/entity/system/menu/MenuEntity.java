@@ -6,20 +6,26 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.io.Serializable;
 
 @Setter
 @Getter
 @Entity
-@Table (name = "menu")
-public class MenuEntity extends AbstractAuditingEntity<String> implements Serializable {
+@DynamicUpdate
+@NoArgsConstructor
+@AllArgsConstructor
+@Table (name = "SYS_MENU")
+public class MenuEntity extends AbstractAuditingEntity<Integer> implements Serializable {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer mnId;
 
     private String siteType;
 
@@ -27,7 +33,7 @@ public class MenuEntity extends AbstractAuditingEntity<String> implements Serial
 
     private String route;
 
-    private Long parentId;
+    private Integer parentId;
 
     private Integer displayOrder;
 

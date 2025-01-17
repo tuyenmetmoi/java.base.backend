@@ -58,6 +58,9 @@ public enum ApiStatus {
     // 404 Not found
     NOT_FOUND(HttpStatus.NOT_FOUND, "404001", "Not found"),
 
+    // 404 User Exist
+    USER_EXISTED(HttpStatus.NOT_FOUND, "404002","User existed"),
+
     // 409 Already exist
     CONFLICT(HttpStatus.CONFLICT, "409001", "Conflict"),
 

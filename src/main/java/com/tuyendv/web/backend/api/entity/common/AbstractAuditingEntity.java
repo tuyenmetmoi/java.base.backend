@@ -34,7 +34,7 @@ public abstract class AbstractAuditingEntity<T> implements Serializable {
     private String regIp;
 
     @LastModifiedBy
-    @Column (name = "modify_Id", length = 50)
+    @Column (name = "modify_id", length = 50)
     private String modifyId;
 
     @LastModifiedDate

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 public class MenuRequestDTO {
 
-    private Long id;
+    private Integer id;
 
     private String siteType;
 

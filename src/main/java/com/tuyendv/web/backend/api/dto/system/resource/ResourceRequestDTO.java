@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 public class ResourceRequestDTO {
 
-    private Long id;
+    private Integer id;
 
     private String name;
 

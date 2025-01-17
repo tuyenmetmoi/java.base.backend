@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ResourceRepository extends JpaRepository<ResourceEntity, Long> {
+public interface ResourceRepository extends JpaRepository<ResourceEntity, Integer> {
 
     @Query (value = """
                 SELECT ROW_NUMBER() OVER (ORDER BY sr.id DESC) AS rowNumber, 

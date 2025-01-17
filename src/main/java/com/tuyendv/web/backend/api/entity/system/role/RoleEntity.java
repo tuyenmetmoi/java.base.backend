@@ -6,7 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -14,13 +16,21 @@ import java.io.Serializable;
 @Setter
 @Getter
 @Entity
-@Table (name = "role")
-public class RoleEntity extends AbstractAuditingEntity<String> implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+@Table (name = "SYS_ROLE")
+public class RoleEntity implements Serializable {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer rlId;
 
-    private String name;
+    private String roleCode;
+
+    private String roleName;
+
+    private String category;
+
+    private String roleDesc;
 
 }

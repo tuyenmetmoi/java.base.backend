@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MenuRepository extends JpaRepository<MenuEntity, Long> {
+public interface MenuRepository extends JpaRepository<MenuEntity, Integer> {
 
     @Query (value = """
                 SELECT ROW_NUMBER() OVER (ORDER BY mn.REG_DATE) AS rowNumber, 
@@ -52,8 +52,8 @@ public interface MenuRepository extends JpaRepository<MenuEntity, Long> {
             AND DEL_YN = :delYn
             AND (:id IS NULL OR :id = '' OR ID <> :id)
             """, nativeQuery = true)
-    int checkExistRouteInMenu(@Param ("route") String route, @Param("delYn") String delYn, @Param ("id") Long id);
+    int checkExistRouteInMenu(@Param ("route") String route, @Param("delYn") String delYn, @Param ("id") Integer id);
 
-    List<MenuEntity> findAllByParentId(Long parentId);
+    List<MenuEntity> findAllByParentId(Integer parentId);
 
 }

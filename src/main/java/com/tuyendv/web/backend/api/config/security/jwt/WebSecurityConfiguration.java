@@ -32,10 +32,11 @@ import java.util.List;
 @EnableMethodSecurity
 public class WebSecurityConfiguration {
 
+    private static final String[] PUBLIC_URLS = {"/cmm/files/**", "swagger-ui/**", "/v3/api-docs/**", "/auth/login",
+            "/c/register"};
+
     @Autowired
     private CustomJwtDecoder customJwtDecoder;
-
-    private static final String[] PUBLIC_URLS = { "/cmm/files/**", "swagger-ui/**", "/v3/api-docs/**" };
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -81,20 +82,17 @@ public class WebSecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(AbstractHttpConfigurer::disable)
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource())).csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        auth -> auth.requestMatchers(PUBLIC_URLS).permitAll()
-                                .anyRequest()
-                                .authenticated())
+                        auth -> auth.requestMatchers(PUBLIC_URLS).permitAll().anyRequest().authenticated())
                 .headers(header -> header.addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", "*")));
 
         //config oauth2 with jwt
-        http.oauth2ResourceServer(oauth -> oauth
-                .jwt(jwtConfigurer -> jwtConfigurer.decoder(customJwtDecoder) //decoder toke -> object
-                        .jwtAuthenticationConverter(jwtAuthenticationConverter())) //jwt -> authentication
-                .authenticationEntryPoint(new JwtAuthenticationEntryPoint())); //custom handle jwt validation error
+        http.oauth2ResourceServer(
+                oauth -> oauth.jwt(jwtConfigurer -> jwtConfigurer.decoder(customJwtDecoder) //decoder toke -> object
+                                .jwtAuthenticationConverter(jwtAuthenticationConverter())) //jwt -> authentication
+                        .authenticationEntryPoint(
+                                new JwtAuthenticationEntryPoint())); //custom handle jwt validation error
 
         return http.build();
     }

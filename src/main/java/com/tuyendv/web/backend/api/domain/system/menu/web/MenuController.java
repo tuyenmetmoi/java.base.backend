@@ -53,14 +53,14 @@ public class MenuController {
 
     @PostMapping ("/detail")
     public ApiResponse<MenuResponseDTO> getMenuById(@RequestBody String id) {
-        MenuResponseDTO detailMenu = menuService.detailMenu(Long.parseLong(id));
+        MenuResponseDTO detailMenu = menuService.detailMenu(Integer.valueOf(id));
 
         return new ApiResponse<>(ApiStatus.SUCCESS, detailMenu);
     }
 
     @PutMapping ("/delete")
     public ApiResponse<MenuResponseDTO> updateDeleteFlag(@RequestBody String id) {
-        MenuResponseDTO deleteResult = menuService.updateDeleteFlagMenu(Long.parseLong(id));
+        MenuResponseDTO deleteResult = menuService.updateDeleteFlagMenu(Integer.valueOf(id));
 
         return new ApiResponse<>(ApiStatus.SUCCESS, deleteResult);
     }

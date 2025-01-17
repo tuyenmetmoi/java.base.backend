@@ -45,17 +45,17 @@ public class ResourceRoleServiceImpl implements ResourceRoleService {
         List<ResourceRoleResponseDTO> lstResults = new ArrayList<>();
 
         if (dto != null) {
-            RoleEntity roleEntity = roleRepository.findById(Long.parseLong(dto.getRoleId()))
+            RoleEntity roleEntity = roleRepository.findById(Integer.valueOf(dto.getRoleId()))
                     .orElseThrow(() -> new CustomException(ApiStatus.NOT_FOUND));
 
             if (! dto.getListInsert().isEmpty()) {
                 for (String resourceId : dto.getListInsert()) {
-                    ResourceEntity resourceEntity = resourceRepository.findById(Long.parseLong(resourceId))
+                    ResourceEntity resourceEntity = resourceRepository.findById(Integer.valueOf(resourceId))
                             .orElseThrow(() -> new CustomException(ApiStatus.NOT_FOUND));
 
                     ResourceRoleEntity entity = new ResourceRoleEntity();
-                    entity.setRoleId(roleEntity.getId());
-                    entity.setResourceId(resourceEntity.getId());
+                    entity.setRlId(roleEntity.getRlId());
+                    entity.setRsId(resourceEntity.getRsId());
 
                     resourceRoleRepository.save(entity);
                     lstResults.add(modelMapper.map(entity, ResourceRoleResponseDTO.class));

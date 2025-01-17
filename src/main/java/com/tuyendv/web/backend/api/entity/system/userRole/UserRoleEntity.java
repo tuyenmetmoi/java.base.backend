@@ -1,6 +1,5 @@
-package com.tuyendv.web.backend.api.entity.system.resourceRole;
+package com.tuyendv.web.backend.api.entity.system.userRole;
 
-import com.tuyendv.web.backend.api.entity.common.AbstractAuditingEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,15 +17,17 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table (name = "SYS_RESOURCE_ROLE")
-public class ResourceRoleEntity implements Serializable {
+@Table (name = "SYS_USER_ROLE")
+public class UserRoleEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer rrId;
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Integer urId;
 
-    private Integer rsId;
+    private Integer usId;
 
     private Integer rlId;
+
+    private String useYn;
 
 }
